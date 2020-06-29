@@ -1,0 +1,92 @@
+
+'''
+    import wave
+    spf = wave.open("test.wav", "r")
+
+    # Extract Raw Audio from Wav File
+    signal = spf.readframes(-1)
+    signal = np.fromstring(signal, "Int16")
+    print(signal)
+    print(signal.shape)
+    print(signal.dtype)
+
+    plt.figure(1)
+    plt.title("Signal Wave...")
+    plt.plot(signal)
+    plt.show()
+'''
+
+    '''
+    import matplotlib.pyplot as plt
+    import numpy as np
+    import sys
+
+
+    spf = wave.open("test.wav", "r")
+
+    # Extract Raw Audio from Wav File
+    signal = spf.readframes(-1)
+    signal = np.fromstring(signal, "Int16")
+    print(signal.shape)
+    
+
+    # If Stereo
+    if spf.getnchannels() == 2:
+        print("Just mono files")
+        sys.exit(0)
+
+    plt.figure(1)
+    plt.title("Signal Wave...")
+    plt.plot(signal)
+    plt.show()
+    '''
+    '''
+    
+'''
+
+'''
+    def animate_plot(ax1, i):
+        chunk = next(chunks)
+        # compute FFT
+        y_freq = fft(chunk)
+        # frequency axe in Hz:
+        # 0.0 to max frequency (= sample rate/2), number of step is half of NB_SAMPLE
+        x_freq = np.linspace(0.0, int(SAMPLE_RATE / 2), int(SAMPLE_SIZE / 2))
+        # level axe at each frequency:
+        # yf between 0.0 and 1.0 for every xf step
+        y_level = 1.0 / (SAMPLE_SIZE / 2) * np.abs(y_freq[0:SAMPLE_SIZE // 2]) * 100
+        # wipe and redraw
+        ax1.clear()
+        ax1.set_facecolor('grey')
+        ax1.set_xlabel('Frequency (Hz)')
+        ax1.set_ylabel('Level (%)')
+        ax1.plot(x_freq, y_level, 'b', lw=2)
+        # find higher level frequency
+        index_max = np.argmax(y_level)
+        freq_max = x_freq[index_max]
+        print('max level at f=%i Hz (lvl=%.02f %%)' % (freq_max, y_level[index_max]))
+        #print('sample: max %.04f, min %.04f' % (max(samples), min(samples)))
+
+        play_chunk(chunk)
+        #write_chunk(chunk, Path("./test.mp3"))
+        #break
+
+
+    # init a dynamic plotter
+    fig, (ax1) = plt.subplots(nrows=1, ncols=1)
+    fig.canvas.set_window_title('Sound spectral view')
+    ani = animation.FuncAnimation(fig, ft.partial(animate_plot, ax1), interval=5)
+    plt.show()
+
+    #seg = audiosegment.from_file()
+    #plt.show()
+    #for a in range(18*60, 10000000):
+    #    plt.clf()
+    #    hist_bins, hist_vals = seg[1 + a * 1000:(a+1) * 1000].fft()
+    #    hist_vals_real_normed = np.abs(hist_vals) / len(hist_vals)
+    #    plt.plot(hist_bins / 1000, hist_vals_real_normed)
+    #    plt.xlabel("kHz")
+    #    plt.ylabel("dB")
+        #plt.show()
+    #    plt.pause(.01)
+    '''
